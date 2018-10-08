@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for repo in alpine-base-image java-base-image; do
+  if [ -d /tmp/${repo} ];then
+    cd /tmp/$repo
+    git reset --hard origin/master
+    git pull -r 
+    cd -
+  else
+    git clone https://gitea.app.oscp.mercedes-benz.com/mbd-otr/${repo}.git /tmp/$repo
+  fi
+done
+
+cd /tmp/alpine-base-image && \
+  ./run build_all
